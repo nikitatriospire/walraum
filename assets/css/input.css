@@ -1,0 +1,204 @@
+@import "tailwindcss";
+/* Inter Variable Font */
+@font-face {
+    font-family: 'Inter';
+    src: url('../fonts/InterVariable.ttf') format('truetype');
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* General Sans Variable Font */
+@font-face {
+    font-family: 'General Sans';
+    src: url('../fonts/GeneralSans-Variable.ttf') format('truetype');
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+@theme {
+  --spacing: 1px;
+  --spacing-space: clamp(3.125rem, 2.2416rem + 4.417vw, 6.25rem);
+ 
+  --breakpoint-*: initial;
+ 
+  --breakpoint-xsm: 425px;
+  --breakpoint-sm: 576px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 992px;
+   --breakpoint-xlg: 1024px;
+  --breakpoint-xl: 1200px;
+  --breakpoint-xxl: 1512px;
+  --breakpoint-3xl: 1740px;
+ 
+  --container-*: initial;
+ 
+  --container-xsm:100%;
+  --container-sm: 576px;
+  --container-md: 768px;
+  --container-lg: 992px;
+  --container-xlg: 1024px;
+  --container-xl: 1200px;
+  --container-xxl: 1512px;
+  --container-3xl: 1740px;
+ 
+  --font-inter:  'Inter';
+  --font-sans:  'General Sans';
+ 
+  --text-h1: clamp(33px, 4vw, 64px);
+  --text-h2: clamp(28px, 4vw, 48px);
+  --text-h3: clamp(24px, 3.5vw, 32px);
+  --text-h4: clamp(20px, 1.5vw, 24px);
+  --text-t_20: clamp(18px, 3vw, 20px);
+  --text-body: clamp(16px, 3vw, 18px);
+  --text-p: clamp(14px, 3vw, 16px);
+  
+}
+
+/* Custom color themes using attribute selectors */
+:root {
+  --text-white:#ffffff;
+  --text-hover_light: #FFFFFFCC;
+  --text-primary: #111111;  
+  --text-secondary: #4B4B4B;
+  --button-bg:#008000;
+  --button-bg1:#00A800;
+  --light-green:#F7FFF5;
+  --overlay: #00000029;
+  --overlay1: #00000029;
+  
+}
+@layer base {
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  body{
+    @apply  font-inter text-body tracking-[2%] text-(--text-primary)
+  }
+button, a{
+   @apply cursor-pointer
+  }
+  a, span{
+    @apply inline-block
+  }
+  .container{
+    @apply mx-auto px-16
+  }
+  html {
+ @apply scroll-smooth
+}
+h1, h2{
+  @apply font-sans leading-[1.1em] tracking-[1%] capitalize
+}
+
+}
+
+@layer utility{
+.btn-primary{
+  @apply flex justify-center items-center gap-8 bg-(--button-bg) text-white uppercase text-center cursor-pointer px-24 py-12 w-fit font-medium text-p transition-all duration-300 ease-in-out hover:bg-(--button-bg1) active:bg-(--button-bg1) focus-within:bg-(--button-bg1)
+}
+.btn-link{
+  @apply flex justify-center items-center gap-8 bg-transparent text-white uppercase text-center cursor-pointer pr-24 py-12 w-fit font-medium text-p transition-all duration-300 ease-in-out hover:text-(--text-hover_light) active:text-(--hover_light) focus-within:text-(--hover_light) 
+}
+.btn-border{
+  @apply flex justify-center items-center gap-8 bg-transparent border-[1.5px] border-(--button-bg) hover:border-(--button-bg1) text-(--button-bg) uppercase text-center cursor-pointer px-24 py-12 w-fit font-medium text-p transition-all duration-300 ease-in-out hover:text-(--button-bg1) active:text-(--button-bg1) focus-within:text-(--button-bg1)
+}
+.blurr{
+  @apply blur-sm
+}
+
+.accordion-content{
+  @apply overflow-hidden max-h-0 transition-all duration-300  ease-in-out
+}
+header #mainMenu  nav {
+  @apply fixed lg:relative top-100 lg:top-0 bg-white lg:bg-transparent w-full lg:w-auto h-full lg:h-auto py-80 left-0 lg:py-0 
+  transform -translate-y-[120%] lg:translate-y-0 
+  opacity-0 lg:opacity-100 
+  invisible lg:visible
+  transition-all duration-300 ease-in-out;
+}
+
+/* ADD THIS */
+header #mainMenu   nav.active {
+  @apply translate-y-0 opacity-100 visible 
+}
+header #mainMenu  nav > ul{
+  @apply flex items-center justify-center gap-20 lg:gap-28 [&_li]:p-8 lg:flex-row flex-col
+}
+header #mainMenu nav ul li a{
+  @apply text-h4 lg:text-p font-medium uppercase tracking-[6%] transition-all duration-300 ease-in-out hover:text-(--button-bg) active:text-(--button-bg) focus-within:text-(--button-bg)
+}
+}
+.line {
+  transition: all 0.3s ease-in-out;
+}
+.swiper-button-prev,
+.swiper-button-next {
+  width: 45px;
+  height: 45px;
+  background: white;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.swiper-button-prev::after,
+.swiper-button-next::after {
+  display: none; /* remove default arrows */
+}
+
+.prev-icon,
+.next-icon {
+  font-size: 20px;
+  font-weight: bold;
+}
+/* Default transition for smooth effect */
+.swiper-button-prev,
+.swiper-button-next {
+  transition:all 0.3s ease, color 0.3s ease;
+
+}
+.swiper-pagination-bullet-active{
+  background:#008000 !important;
+}
+/* Hover + Focus */
+.swiper-button-prev:hover,
+.swiper-button-next:hover,
+.swiper-button-prev:focus,
+.swiper-button-next:focus {
+  background-color: var(--button-bg);
+  border:1px solid var(--button-bg);
+}
+
+/* Active click (press effect) */
+.swiper-button-prev:active,
+.swiper-button-next:active {
+  background-color: var(--button-bg);
+    border:1px solid var(--button-bg);
+}
+
+/* Optional: change icon color when active */
+.swiper-button-prev:hover svg path,
+.swiper-button-next:hover svg path,
+.swiper-button-prev:focus svg path,
+.swiper-button-next:focus svg path {
+  stroke: white;
+}
+
+.icon-hover {
+  transition: filter 0.3s ease;
+}
+
+.icon-hover:hover {
+  filter: brightness(0) saturate(100%) 
+          invert(36%) sepia(92%) saturate(450%) 
+          hue-rotate(85deg) brightness(95%) contrast(95%);
+}
+
+
+
+
