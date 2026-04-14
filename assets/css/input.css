@@ -75,8 +75,11 @@
     padding: 0;
     box-sizing: border-box;
   }
+  html{
+    @apply scroll-smooth
+  }
   body{
-    @apply  font-inter text-body tracking-[2%] text-(--text-primary)
+    @apply  font-inter text-body tracking-[2%] text-(--text-primary) 
   }
 button, a{
    @apply cursor-pointer
@@ -131,10 +134,50 @@ header #mainMenu  nav > ul{
 header #mainMenu nav ul li a{
   @apply text-h4 lg:text-p font-medium uppercase tracking-[6%] transition-all duration-300 ease-in-out hover:text-(--button-bg) active:text-(--button-bg) focus-within:text-(--button-bg)
 }
+/* Impressum page */
+.impressum.sec-page-title{
+  @apply bg-(--light-green) pt-200 pb-100 [&_h1]:text-h2
+}
+.impressum.sec-page-title .container, .sec-page-content .container{
+  @apply max-w-1600
+}
+.sec-page-content{
+  @apply py-50 font-medium [&_p]:text-(--text-secondary) [&_p]:mb-16 
+}
+.sec-page-content h2{
+  @apply text-h3! font-medium mb-20 mt-24
+}
+.sec-page-content h2 strong{
+  @apply font-medium
+}
+.sec-page-content ul{
+  @apply pl-24 flex flex-col gap-10 list-disc text-(--text-secondary) my-10
+}
+.sec-page-content p strong{
+  @apply text-(--text-primary)
+}
+.sec-page-content h3{
+  @apply text-h4 font-medium mb-20 mt-24
+}
+.sec-page-content h4{
+  @apply text-t_20 font-medium mb-20 mt-24
+}
+
 }
 .line {
   transition: all 0.3s ease-in-out;
 }
+.menu-btn.active-btn {
+    border-bottom: 2px solid var(--button-bg);
+  }
+.menu-btn.active-btn{
+    display:block;
+    color: var(--button-bg);
+  }
+  .list-dec{
+    color: var(--button-bg);
+  }
+ /* Swiper nav and dots design css */
 .swiper-button-prev,
 .swiper-button-next {
   width: 45px;
@@ -232,12 +275,10 @@ header #mainMenu nav ul li a{
 	  border-radius: 99px;
 }
 
-.menu-btn.active-btn {
-    border-bottom: 2px solid var(--button-bg);
-  }
-  .menu-btn.active-btn{
-    display:block;
-    color: var(--button-bg);
-  }
- 
+/* Impressum Css */
+.sec-page-content a{
+  color: var(--button-bg) !important;
+}
+
+
 

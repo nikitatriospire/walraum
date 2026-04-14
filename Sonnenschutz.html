@@ -6,10 +6,12 @@
         <title>Sonnenschutz Page</title>
         <link rel="stylesheet" href="./assets/css/swiper-bundle.min.css">
         <link rel="stylesheet" href="./assets/css/output.css">
+
+        <link rel="icon" href="./assets/images/favicon-light.svg">
     </head>
     <body>
         <!-- Skip Link button  -->
-       <a href="#mainContent" class="skip-link btn-primary fixed top-0 left-0 z-40 px-16 py-12 min-h-48">Skip to content</a>
+       <a  href="#mainContent" id="skiplink" class="btn-primary fixed top-0 left-0 z-40 px-8! py-8! text-[14px]!">Skip to content</a>
         <!-- HEADER -->
         <header class="header py-24 fixed w-full top-0 left-0 z-30">
             <div class="container">
@@ -478,18 +480,38 @@ bis abdunkelnd.
                             </div>
                             <div class="grid sm:grid-cols-2 xl:grid-cols-4 gap-28">
                                 <div class="relative overflow-hidden group h-auto lg:h-600">
-                                    <img src="./assets/images/isotope-img-3.webp" alt="Sonnenschutzlösung für große Fensterflächen" class="size-full object-cover transition-all duration-300 ease-in-out group-hover:scale-105">
+                                    <img src="./assets/images/isotope-img-3.webp" alt="Sonnenschutzlösung für große Fensterflächen" class="gallery-img size-full object-cover transition-all duration-300 ease-in-out group-hover:scale-105">
                                 </div>
                                 <div class="relative overflow-hidden group h-auto lg:h-600">
-                                    <img src="./assets/images/isotope-img-2.webp" alt="Sonnenschutz für Balkon- und Terrassentüren" class="size-full object-cover transition-all duration-300 ease-in-out group-hover:scale-105">
+                                    <img src="./assets/images/isotope-img-2.webp" alt="Sonnenschutz für Balkon- und Terrassentüren" class="gallery-img size-full object-cover transition-all duration-300 ease-in-out group-hover:scale-105">
                                 </div>
                                 <div class="relative overflow-hidden group h-auto lg:h-600">
-                                    <img src="./assets/images/isotope-random.webp" alt="Individuelle Sonnenschutzlösung für moderne Wohnräume" class="size-full object-cover transition-all duration-300 ease-in-out group-hover:scale-105">
+                                    <img src="./assets/images/isotope-random.webp" alt="Individuelle Sonnenschutzlösung für moderne Wohnräume" class="gallery-img size-full object-cover transition-all duration-300 ease-in-out group-hover:scale-105">
                                 </div>
                                 <div class="relative overflow-hidden group h-auto lg:h-600">
-                                    <img src="./assets/images/isotope-img-4.webp" alt="Sonnenschutz für Dachfenster und spezielle Einbausituationen" class="size-full object-cover transition-all duration-300 ease-in-out group-hover:scale-105">
+                                    <img src="./assets/images/isotope-img-4.webp" alt="Sonnenschutz für Dachfenster und spezielle Einbausituationen" class="gallery-img size-full object-cover transition-all duration-300 ease-in-out group-hover:scale-105">
                                 </div>
                             </div>
+                             <!-- lightbox -->
+                        <div id="lightbox" class="fixed inset-0 bg-black/90 hidden items-center justify-center z-50">
+
+                        <!-- Close -->
+                        <button id="closeLightbox"
+                            class="absolute top-5 right-[25%] text-white text-3xl">✕</button>
+
+                        <!-- Prev -->
+                        <button id="prev"
+                            class="absolute left-[25%] w-60 h-60 bg-white text-(--button-bg) text-[45px] flex justify-center items-center">‹</button>
+
+                        <!-- Image -->
+                        <img id="lightboxImg"
+                            class="max-w-[90%] max-h-[90%] object-contain">
+
+                        <!-- Next -->
+                        <button id="next"
+                            class="absolute right-[25%] w-60 h-60 bg-white text-(--button-bg) text-[45px] flex justify-center items-center">›</button>
+
+                        </div>
                         </div>
                     </div>
                 </section>
@@ -676,6 +698,13 @@ bis abdunkelnd.
                     </div>
                 </div>
             </footer>
+             <button id="scrollTopBtn"
+  class="fixed bottom-6 right-6 z-50 opacity-0 invisible 
+         bg-(--button-bg) text-white w-42 h-42 rounded-full 
+         flex items-center justify-center 
+         transition-all duration-300">
+  ↑
+</button>
             <!-- Script -->
             <script src="./assets/js/swiper-bundle.min.js"></script>
             <script src="./assets/js/script.js"></script>

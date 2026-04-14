@@ -1,39 +1,37 @@
 //------------ Skip Link Button -----------------
-const skipLink = document.querySelector(".skip-link");
+document.addEventListener("DOMContentLoaded", function () {
 
-window.addEventListener("load", () => {
-  skipLink.style.top = "10px";
-});
+  const skipLink = document.getElementById("skiplink");
+  if (!skipLink) return;
 
-let isHidden = false;
+  // 👉 Initial hidden state
+  skipLink.style.transform = "translateY(-110%)";
 
-function hideSkipLink() {
-  if (isHidden) return;
+  let shownOnce = false;
 
-  isHidden = true;
-  skipLink.style.top = "-100px";
+  // 👉 Show on FIRST TAB only
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Tab" && !shownOnce) {
+      skipLink.style.transform = "translateY(0)";
+      shownOnce = true;
+    }
+  });
 
-  document.removeEventListener("keydown", handleFirstTab);
-  document.removeEventListener("click", hideSkipLink);
-  window.removeEventListener("scroll", handleScroll);
-}
-
-function handleFirstTab(e) {
-  if (e.key === "Tab") {
-    hideSkipLink();
+  // 👉 Hide again after interaction
+  function hideSkipLink() {
+    skipLink.style.transform = "translateY(-110%)";
   }
-}
 
-// 🔥 SCROLL HANDLER
-function handleScroll() {
-  hideSkipLink();
-}
+  // Hide on click anywhere
+  document.addEventListener("click", hideSkipLink);
 
-// listeners
-document.addEventListener("keydown", handleFirstTab);
-document.addEventListener("click", hideSkipLink);
-window.addEventListener("scroll", handleScroll);
+  // Hide on scroll
+  window.addEventListener("scroll", hideSkipLink);
 
+  // Hide when it loses focus
+  skipLink.addEventListener("blur", hideSkipLink);
+
+});
 //----------- Sticky Header -----------------
 document.addEventListener("DOMContentLoaded", () => {
 
@@ -220,10 +218,10 @@ document.addEventListener("DOMContentLoaded", function () {
       loop: true,
       speed: 1000,
 
-      // autoplay: {
-      //   delay: 2500,
-      //   disableOnInteraction: false,
-      // },
+      autoplay: {
+        delay: 2500,
+        disableOnInteraction: false,
+      },
 
       slidesPerView: 3,
       spaceBetween: 28,
@@ -449,3 +447,146 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 
+// lightbox image slider
+
+document.addEventListener("DOMContentLoaded", () => {
+
+  const images = document.querySelectorAll(".gallery-img");
+  const lightbox = document.getElementById("lightbox");
+  const lightboxImg = document.getElementById("lightboxImg");
+
+  const closeBtn = document.getElementById("closeLightbox");
+  const nextBtn = document.getElementById("next");
+  const prevBtn = document.getElementById("prev");
+
+  // ✅ STOP if required elements not found
+  if (!images.length || !lightbox || !lightboxImg) return;
+
+  let currentIndex = 0;
+
+  // =========================
+  // 👉 OPEN LIGHTBOX
+  // =========================
+  images.forEach((img, index) => {
+    img.addEventListener("click", () => {
+      currentIndex = index;
+      showImage();
+      lightbox.classList.remove("hidden");
+      lightbox.classList.add("flex");
+    });
+  });
+
+  function showImage() {
+    lightboxImg.src = images[currentIndex].src;
+  }
+
+  // =========================
+  // 👉 NEXT
+  // =========================
+  if (nextBtn) {
+    nextBtn.addEventListener("click", () => {
+      currentIndex = (currentIndex + 1) % images.length;
+      showImage();
+    });
+  }
+
+  // =========================
+  // 👉 PREV
+  // =========================
+  if (prevBtn) {
+    prevBtn.addEventListener("click", () => {
+      currentIndex = (currentIndex - 1 + images.length) % images.length;
+      showImage();
+    });
+  }
+
+  // =========================
+  // 👉 CLOSE
+  // =========================
+  if (closeBtn) {
+    closeBtn.addEventListener("click", () => {
+      lightbox.classList.add("hidden");
+      lightbox.classList.remove("flex");
+    });
+  }
+
+  // Close on background click
+  if (lightbox) {
+    lightbox.addEventListener("click", (e) => {
+      if (e.target === lightbox) {
+        lightbox.classList.add("hidden");
+        lightbox.classList.remove("flex");
+      }
+    });
+  }
+
+  // =========================
+  // 👉 KEYBOARD SUPPORT
+  // =========================
+  document.addEventListener("keydown", (e) => {
+    if (!lightbox || lightbox.classList.contains("hidden")) return;
+
+    if (e.key === "Escape") {
+      lightbox.classList.add("hidden");
+      lightbox.classList.remove("flex");
+    }
+
+    if (e.key === "ArrowRight" && nextBtn) {
+      nextBtn.click();
+    }
+
+    if (e.key === "ArrowLeft" && prevBtn) {
+      prevBtn.click();
+    }
+  });
+
+});
+
+
+
+// Scroll to top btn
+
+document.addEventListener("DOMContentLoaded", () => {
+
+  const btn = document.getElementById("scrollTopBtn");
+  if (!btn) return;
+
+  const SCROLL_SHOW = 300;
+
+  // =========================
+  // 👉 SHOW / HIDE BUTTON
+  // =========================
+  window.addEventListener("scroll", () => {
+    if (window.scrollY > SCROLL_SHOW) {
+      btn.classList.remove("opacity-0", "invisible");
+      btn.classList.add("opacity-100", "visible");
+    } else {
+      btn.classList.add("opacity-0", "invisible");
+      btn.classList.remove("opacity-100", "visible");
+    }
+  });
+
+  // =========================
+  // 👉 SAFARI SAFE SCROLL
+  // =========================
+  function smoothScrollToTop() {
+
+    // If browser supports smooth behavior
+    if ("scrollBehavior" in document.documentElement.style) {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } else {
+      // Fallback for older Safari
+      let scrollStep = -window.scrollY / 15;
+      let scrollInterval = setInterval(() => {
+        if (window.scrollY !== 0) {
+          window.scrollBy(0, scrollStep);
+        } else {
+          clearInterval(scrollInterval);
+        }
+      }, 16);
+    }
+  }
+
+  btn.addEventListener("click", smoothScrollToTop);
+
+});

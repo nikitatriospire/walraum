@@ -5,9 +5,13 @@
         <meta name="viewport" content="width=device-width,initial-scale=1">
         <title>Walraum Home Page</title>
         <link rel="stylesheet" href="./assets/css/output.css">
+
+      
+        <link rel="icon" href="./assets/images/favicon-light.svg">
+     
     </head>
     <body class="home">
-        <a href="#mainContent" class="skip-link btn-primary fixed top-0 left-0 z-40 px-16 py-12 min-h-48">Skip to content</a>
+        <a  href="#mainContent" id="skiplink" class="btn-primary fixed top-0 left-0 z-40 px-8! py-8! text-[14px]!">Skip to content</a>
         <!-- HEADER -->
         <header class="header py-24 fixed w-full top-0 left-0 z-30">
             <div class="container">
@@ -186,7 +190,7 @@
                             </div>
                             <div class="inner-box">
                                 <div class="box-filter-flex Alle mt-24 md:mt-32 xl:mt-64">
-                                    <div id="gridLayout" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-6 lg:grid-cols-12 gap-16 lg:gap-28 auto-rows-[120px] sm:auto-rows-[150px] lg:auto-rows-[200px]">
+                                    <div id="gridLayout" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-6 lg:grid-cols-12 gap-16 lg:gap-28 auto-rows-[120px] sm:auto-rows-[150px] lg:auto-rows-[200px] grid-flow-dense">
                                         <!-- ACF Loop Start -->
                                         <div class="grid-item relative group break-inside-avoid overflow-hidden">
                                             <div class="absolute inset-0 bg-(--overlay) z-10"></div>
@@ -248,7 +252,7 @@
                                 </div>
                                 <!-- column -->
                                 <div class="box-filter-flex  insektenschutz mt-24 md:mt-32 xl:mt-64">
-                                    <div id="gridLayout" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-6 lg:grid-cols-12 gap-16 lg:gap-28 auto-rows-[120px] sm:auto-rows-[150px] lg:auto-rows-[200px]">
+                                    <div id="gridLayout" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-6 lg:grid-cols-12 gap-16 lg:gap-28 auto-rows-[120px] sm:auto-rows-[150px] lg:auto-rows-[200px] grid-flow-dense">
                                         <!-- ACF Loop Start -->
                                         <div class="grid-item relative group break-inside-avoid overflow-hidden">
                                             <div class="absolute inset-0 bg-(--overlay) z-10"></div>
@@ -284,7 +288,7 @@
                                 </div>
                                 <!-- column -->
                                 <div class="box-filter-flex  ionnenschutz mt-24 md:mt-32 xl:mt-64">
-                                    <div id="gridLayout" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-6 lg:grid-cols-12 gap-16 lg:gap-28 auto-rows-[120px] sm:auto-rows-[150px] lg:auto-rows-[200px]">
+                                    <div id="gridLayout" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-6 lg:grid-cols-12 gap-16 lg:gap-28 auto-rows-[120px] sm:auto-rows-[150px] lg:auto-rows-[200px] grid-flow-dense">
                                         <!-- ACF Loop Start -->
                                         <div class="grid-item relative group break-inside-avoid overflow-hidden">
                                             <div class="absolute inset-0 bg-(--overlay) z-10"></div>
@@ -649,6 +653,13 @@
                 </div>
             </div>
         </footer>
+        <button id="scrollTopBtn"
+  class="fixed bottom-6 right-6 z-50 opacity-0 invisible 
+         bg-(--button-bg) text-white w-42 h-42 rounded-full 
+         flex items-center justify-center 
+         transition-all duration-300">
+  ↑
+</button>
         <!-- Script -->
         <script src="./assets/js/script.js"></script>
     </body>
