@@ -35,61 +35,80 @@ document.addEventListener("click", hideSkipLink);
 window.addEventListener("scroll", handleScroll);
 
 //----------- Sticky Header -----------------
-const header = document.querySelector("header");
-const whiteLogo = document.querySelector(".white-logo");
-const colorLogo = document.querySelector(".color-logo");
-const navLinks = document.querySelectorAll("nav ul li a");
+document.addEventListener("DOMContentLoaded", () => {
 
-const SCROLL_THRESHOLD = 50;
+  const header = document.querySelector("header");
+  const whiteLogo = document.querySelector(".white-logo");
+  const colorLogo = document.querySelector(".color-logo");
+  const navLinks = document.querySelectorAll("header ul li a");
 
-// ✅ Check if homepage
-const isHomePage = document.body.classList.contains("home");
+  const SCROLL_THRESHOLD = 50;
 
-// ✅ DEFAULT STATE for NON-homepage
+  // 👉 Adjust this if needed
+  const isHomePage = document.body.classList.contains("home");
+
+  if (!header) return;
+// ===============================
+// 👉 NON-HOMEPAGE (STATIC STATE)
+// ===============================
 if (!isHomePage) {
+
+  // ✅ Force white background
   header.classList.add("bg-white");
   header.classList.remove("bg-transparent");
 
-  whiteLogo.classList.add("opacity-0", "invisible");
-  colorLogo.classList.remove("opacity-0", "invisible");
+  // Show colored logo only
+  if (whiteLogo) {
+    whiteLogo.classList.add("opacity-0", "invisible");
+  }
+  if (colorLogo) {
+    colorLogo.classList.remove("opacity-0", "invisible");
+  }
 
+  // Dark nav links
   navLinks.forEach(link => {
     link.classList.remove("text-white");
     link.classList.add("text-[#111111]");
   });
+
+  return; // 🚀 stop scroll logic
 }
 
-// ✅ Scroll effect ONLY for homepage
-if (isHomePage) {
-  window.addEventListener("scroll", function () {
-    if (window.scrollY > SCROLL_THRESHOLD) {
+  // ===============================
+  // 👉 HOMEPAGE SCROLL BEHAVIOR
+  // ===============================
+  function handleScroll() {
 
-      header.classList.add("bg-white");
-      header.classList.remove("bg-transparent");
+    const isScrolled = window.scrollY > SCROLL_THRESHOLD;
 
-      whiteLogo.classList.add("opacity-0", "invisible");
-      colorLogo.classList.remove("opacity-0", "invisible");
+    // Header background (safe toggle)
+    header.classList.toggle("bg-white", isScrolled);
+    header.classList.toggle("bg-transparent", !isScrolled);
 
-      navLinks.forEach(link => {
-        link.classList.remove("text-white");
-        link.classList.add("text-[#111111]");
-      });
+    // Logo switching
+    if (whiteLogo && colorLogo) {
+      whiteLogo.classList.toggle("opacity-0", isScrolled);
+      whiteLogo.classList.toggle("invisible", isScrolled);
 
-    } else {
-
-      header.classList.remove("bg-white");
-      header.classList.add("bg-transparent");
-
-      whiteLogo.classList.remove("opacity-0", "invisible");
-      colorLogo.classList.add("opacity-0", "invisible");
-
-      navLinks.forEach(link => {
-        link.classList.add("text-white");
-        link.classList.remove("text-[#111111]");
-      });
+      colorLogo.classList.toggle("opacity-0", !isScrolled);
+      colorLogo.classList.toggle("invisible", !isScrolled);
     }
-  });
-}
+
+    // Nav link colors
+    navLinks.forEach(link => {
+      link.classList.toggle("text-white", !isScrolled);
+      link.classList.toggle("text-[#111111]", isScrolled);
+    });
+  }
+
+  // Initial state
+  handleScroll();
+
+  // Scroll event
+  window.addEventListener("scroll", handleScroll);
+
+});
+
 // MObile Menu
 document.addEventListener("DOMContentLoaded", () => {
   const menuBtn = document.getElementById("menuBtn");
@@ -341,9 +360,92 @@ document.addEventListener("DOMContentLoaded", () => {
       linkPath === currentPath ||
       (linkPath === "" && currentPath === "")
     ) {
-      link.classList.add("text-green-600"); // your green class
+      link.classList.add("text-green-600"); 
     } else {
       link.classList.remove("text-green-600");
     }
   });
 });
+
+// isotope gallery
+   const menuBtns = document.querySelectorAll('.menu-btn');
+const innerBox = document.querySelectorAll('.box-filter-flex');
+
+let activeBtn = "Alle";
+
+showData(activeBtn);
+
+menuBtns.forEach((btn) => {
+    btn.addEventListener('click', () => {
+        resetActiveBtn();
+        showData(btn.id);
+        btn.classList.add('active-btn');
+    });
+});
+
+function resetActiveBtn(){
+    menuBtns.forEach((btn) => {
+        btn.classList.remove('active-btn');
+    });
+}
+
+function showData(newMenuBtn){
+    activeBtn = newMenuBtn;
+    innerBox.forEach((item) => {
+        if(item.classList.contains(activeBtn)){
+            item.style.display = "block";
+        } else {
+            item.style.display = "none";
+        }
+    });
+}
+
+
+// image gallery
+document.addEventListener("DOMContentLoaded", () => {
+
+  const items = document.querySelectorAll("#gridLayout .grid-item");
+
+  const patterns = [
+    { col: 5, row: 2 },
+    { col: 4, row: 2 },
+    { col: 3, row: 3 },
+    { col: 3, row: 2 },
+    { col: 6, row: 2 },
+    { col: 3, row: 1 },
+    { col: 4, row: 2 },
+    { col: 8, row: 2 },
+    { col: 4, row: 2 },
+  ];
+
+  function applyLayout() {
+    const isMobile = window.innerWidth < 640;
+    const isTablet = window.innerWidth < 1024;
+
+    items.forEach((item, index) => {
+      const pattern = patterns[index % patterns.length];
+
+      if (isMobile) {
+        // Mobile → full width
+        item.style.gridColumn = "span 1";
+        item.style.gridRow = "span 2";
+      } 
+      else if (isTablet) {
+        // Tablet → simplified layout
+        item.style.gridColumn = `span ${Math.min(pattern.col, 6)}`;
+        item.style.gridRow = "span 2";
+      } 
+      else {
+        // Desktop → full design
+        item.style.gridColumn = `span ${pattern.col}`;
+        item.style.gridRow = `span ${pattern.row}`;
+      }
+    });
+  }
+
+  applyLayout();
+  window.addEventListener("resize", applyLayout);
+
+});
+
+

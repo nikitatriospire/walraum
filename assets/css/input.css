@@ -162,9 +162,7 @@ header #mainMenu nav ul li a{
   transition:all 0.3s ease, color 0.3s ease;
 
 }
-.swiper-pagination-bullet-active{
-  background:#008000 !important;
-}
+
 /* Hover + Focus */
 .swiper-button-prev:hover,
 .swiper-button-next:hover,
@@ -200,5 +198,46 @@ header #mainMenu nav ul li a{
 }
 
 
+/* Increase touch target size */
+.swiper-pagination-bullet {
+ width: 26px;
+    height: 26px;
+  background: transparent;
+  opacity: 1;
+  margin: 0 4px !important;
+  position: relative;
+}
 
+/* Actual visible dot */
+.swiper-pagination-bullet::after {
+  content: "";
+  width: 12px;
+  height: 12px;
+  background-color: #999;
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.swiper-pagination-bullet-active{
+	width:36px;
+}
+
+/* Active bullet */
+.swiper-pagination-bullet-active::after {
+  background-color: var(--button-bg);
+  width: 12px !important;
+  height: 12px !important;
+	  border-radius: 99px;
+}
+
+.menu-btn.active-btn {
+    border-bottom: 2px solid var(--button-bg);
+  }
+  .menu-btn.active-btn{
+    display:block;
+    color: var(--button-bg);
+  }
+ 
 
